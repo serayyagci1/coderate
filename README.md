@@ -55,7 +55,14 @@ The Features include (with description) :
 
 ### Data Storage and Handling
 
- The dataset was imported as a dataset using the Pandas library in Python, which will allow for efficient data manipulation and analysis. Our approach will ensure compatibility with various data analysis tools without the need for a separate database system.
+The dataset was imported as a dataset using the Pandas as a CSV file in Python, which allows for efficient data manipulation and analysis. Our approach will ensure compatibility with various data analysis tools without the need for a separate database system.
+
+### Data Pre-processing
+
+
+
+
+
 
 
 
