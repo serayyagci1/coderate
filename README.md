@@ -58,6 +58,32 @@ The Features include (with description) :
 The dataset was imported as a dataset using the Pandas as a CSV file in Python, which allows for efficient data manipulation and analysis. Our approach will ensure compatibility with various data analysis tools without the need for a separate database system.
 
 ### Data Pre-processing
+A preliminary data exploration was performed  to understand its structure, features, and characteristics. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
+
+### ML Model Implementation
+1. The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
+3. Logistic regression and Decision Tree classifier models are chosen for this dataset. For each trained model, evaluation metrics:  accuracy, precision, recall, F1-score, Cohen's Kappa score, and area under the ROC curve (AUC) are calculated using the **evaluate_model()** function. Confusion matrices are also computed for both models to assess performance.
+4. The trained models, along with the scalers used for feature scaling, are saved to disk using **joblib.dump()** for future use.
+5. The prediction result (whether the prediction is positive or negative for heart disease) along with the probability is displayed.
+   
+### Statistical Analysis
+The following Statistical analyses were performed in the dataset:
+1. Correlation Matrix heatmap:  To visualize the correlation between all the features in the dataset.
+2. Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
+3. Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn's **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
+4.  T-Test for Comparing Groups: t-test to compare two groups based on a categorical variable (e.g., smoking status or gender) for the occurrence of heart disease(Yes or No).  The t-test is performed using **ttest_ind()** from scipy.stats.
+
+### Interface
+A web application for heart disease prediction and visualization was created using Django called **heartProjectApp**. The application has the following functionalities: 
+1. Ajax calls for dynamic interaction , 
+2. Built a form with djangos form function and used the evaluation model_r script to evaluate user data inside the view, and reflect user result
+3. Created and showed a chrolopleth map of us states heart disease percentages with our data and a us geojason file, used plotly express to build the resulting map
+
+
+
+
+
+
 
 
 
