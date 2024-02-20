@@ -90,7 +90,9 @@ Several plots have been created to visualize the data for understanding the dist
 7. Two histograms showing the distribution of BMI values among individuals with and without heart disease.
 
 ### Timeline
-The following is our timeline for the project 
+![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/front-end/project_timeline.png?raw=true)
+
+
 
    
 
