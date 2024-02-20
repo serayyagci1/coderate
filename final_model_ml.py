@@ -282,12 +282,12 @@ axs[0].set_xlabel("Prediction")
 axs[0].set_ylabel("Real Value")
 
 sns.heatmap(clf_eval_K["cm"], annot=True, fmt="d", cmap="Blues", cbar=False, ax = axs[1])
-axs[1].set_title("Decision Tree")
+axs[1].set_title("KNeighbor Classifier")
 axs[1].set_xlabel("Prediction")
 axs[1].set_ylabel("Real Value")
 
 sns.heatmap(clf_eval_T["cm"], annot=True, fmt="d", cmap="Blues", cbar=False, ax = axs[2])
-axs[2].set_title("KNeighbor Classifier")
+axs[2].set_title("Decision Tree")
 axs[2].set_xlabel("Prediction")
 axs[2].set_ylabel("Real Value")
 
