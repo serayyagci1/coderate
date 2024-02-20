@@ -61,23 +61,23 @@ The dataset was imported as a dataset using the Pandas as a CSV file in Python, 
 A preliminary data exploration was performed  to understand its structure, features, and characteristics. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
 
 ### ML Model Implementation
-1. The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
-3. Logistic regression and Decision Tree classifier models are chosen for this dataset. For each trained model, evaluation metrics:  accuracy, precision, recall, F1-score, Cohen's Kappa score, and area under the ROC curve (AUC) are calculated using the **evaluate_model()** function. Confusion matrices are also computed for both models to assess performance.
-4. The trained models, along with the scalers used for feature scaling, are saved to disk using **joblib.dump()** for future use.
-5. The prediction result (whether the prediction is positive or negative for heart disease) along with the probability is displayed.
+- The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
+- Logistic regression and Decision Tree classifier models are chosen for this dataset. For each trained model, evaluation metrics:  accuracy, precision, recall, F1-score, Cohen's Kappa score, and area under the ROC curve (AUC) are calculated using the **evaluate_model()** function. Confusion matrices are also computed for both models to assess performance.
+- The trained models, along with the scalers used for feature scaling, are saved to disk using **joblib.dump()** for future use.
+- The prediction result (whether the prediction is positive or negative for heart disease) along with the probability is displayed.
    
 ### Statistical Analysis
 The following Statistical analyses were performed in the dataset:
-1. Correlation Matrix heatmap:  To visualize the correlation between all the features in the dataset.
-2. Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
-3. Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
-4.  T-Test for Comparing Groups: t-test to compare two groups based on a categorical variable (e.g., smoking status or gender) for the occurrence of heart disease(Yes or No).  The t-test uses **ttest_ind()** from scipy.stats.
+- Correlation Matrix heatmap:  To visualize the correlation between all the features in the dataset.
+- Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
+- Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
+- T-Test for Comparing Groups: t-test to compare two groups based on a categorical variable (e.g., smoking status or gender) for the occurrence of heart disease(Yes or No).  The t-test uses **ttest_ind()** from scipy.stats.
 
 ### Interface
 A web application for heart disease prediction and visualization was created using Django called **heartProjectApp**. The application has the following functionalities: 
-1. Ajax calls for dynamic interaction, categorization, and storage of visualization images in SQLite database. The images can be retrieved on selection by the user.
-2. Interactive form with Django's form function for users to input their data related to heart disease risk factors, such as Age, BMI, Race, etc., and used the evaluation script(**model_r**) to evaluate user data with the ML model, and reflect user result. (Heart disease Positive/Negative with probability)
-3. A choropleth map of US states' heart disease percentages. This visualization is on our data combined with a US GeoJSON file containing geographical boundaries of states.
+- Ajax calls for dynamic interaction, categorization, and storage of visualization images in SQLite database. The images can be retrieved on selection by the user.
+- Interactive form with Django's form function for users to input their data related to heart disease risk factors, such as Age, BMI, Race, etc., and used the evaluation script(**model_r**) to evaluate user data with the ML model, and reflect user result. (Heart disease Positive/Negative with probability)
+- A choropleth map of US states' heart disease percentages. This visualization is on our data combined with a US GeoJSON file containing geographical boundaries of states.
 
 ### Visualizations
 Several plots have been created to visualize the data for understanding the distribution of different variables. These include: 
@@ -89,8 +89,22 @@ Several plots have been created to visualize the data for understanding the dist
 6. A heatmap illustrating the correlation matrix among selected numeric columns, including heart disease and other variables.
 7. Two histograms showing the distribution of BMI values among individuals with and without heart disease.
 
+### Installation and Usage
+
 ### Timeline
 ![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/front-end/project_timeline.png?raw=true)
+
+### Acknowledgments
+
+### Group Details
+- Group name: Coderate
+- Group code: G04
+- Tutor : Sven Sören Lange
+- Group leader: Seray Yağcı
+- Group members:Seray Yağci , Yusuf Berk Oruç , Prashanth Sridhar ,  Berfin Taşkın , Emre Semercioğlu
+
+
+
 
 
 
