@@ -1,5 +1,5 @@
 #This code cleans the 2.nd Raw Dataset and makes it ML model-suitable Dataset.
-#This code merges 2 Datasets and samples the final Dataset to create a balanced dataset for the ML training.
+#This code merges two Datasets and samples the final Dataset to create a balanced dataset for the ML training.
 import pandas as pd
 
 # Read the Data set.
@@ -54,6 +54,7 @@ df_2022 = df_2022[dict_rename.values()]
 #Merge the Datasets.
 concat_df = pd.concat([df_2020,df_2022], ignore_index=True)
 
+
 # Apply the age_closer function
 concat_df["AgeCategory"] = concat_df['AgeCategory'].apply(age_closer)
 
@@ -62,7 +63,7 @@ concat_df_positive = concat_df[concat_df['HeartDisease'] == "Yes" ]
 concat_df_negative = concat_df[concat_df['HeartDisease'] == "No" ]
 
 # Sample the negative dataset to evade bias.
-sampled_df = concat_df.sample(len(concat_df_positive),random_state=42)
+sampled_df = concat_df_negative.sample(len(concat_df_positive),random_state=42)
 
 #Merge the sampled negative dataset and the positive data set.
 result_df = pd.concat([sampled_df , concat_df_positive], ignore_index=True)
@@ -71,7 +72,9 @@ result_df = pd.concat([sampled_df , concat_df_positive], ignore_index=True)
 result_df.to_csv("final_evaluation_data.csv",index=False)
 
 #Check the features of the Final Dataset.
+
 result_df.info()
 print(result_df.nunique())
-
+for i in result_df.columns:
+    print(result_df[i].value_counts())
 
