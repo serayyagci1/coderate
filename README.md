@@ -62,6 +62,7 @@ A preliminary data exploration was performed  to understand its structure, featu
 
 ### ML Model Implementation
 - The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
+- Different approaches to handle imbalanced datasets were implemented. These include Logistic regression with SMOTE, ADASYN,  and combined method for oversampling
 - Logistic regression and Decision Tree classifier models are chosen for this dataset. For each trained model, evaluation metrics:  accuracy, precision, recall, F1-score, Cohen's Kappa score, and area under the ROC curve (AUC) are calculated using the **evaluate_model()** function. Confusion matrices are also computed for both models to assess performance.
 - The trained models, along with the scalers used for feature scaling, are saved to disk using **joblib.dump()** for future use.
 - The prediction result (whether the prediction is positive or negative for heart disease) along with the probability is displayed.
@@ -101,7 +102,7 @@ The libraries used in this project include:
 - For ML model implementation : Pandas(pd) , NumPy(np) , Scikit-learn (sklearn) , joblib
 - For Data Visualization : Matplotlib(plt) , Seaborn(sns) and Plotly Express
 - For Statistical Analysis: Pandas, NumPy, SciPy(scipy.stats)
-- For Web application: Django(django.db.models, django. forms, json ,django.shortcuts.render), Matplotlib , Plotly Express, and Seaborn
+- For Web interface: Django(django.db.models, django. forms, json ,django.shortcuts.render), Matplotlib , Plotly Express, and Seaborn
   
 
 ### Group Details
