@@ -101,7 +101,7 @@ Several plots have been created to visualize the data for understanding the dist
 - Group code: G04
 - Tutor : Sven Sören Lange
 - Group leader: Seray Yağcı
-- Group members: Seray Yağci , Yusuf Berk Oruç , Prashanth Sridhar ,  Berfin Taşkın , Emre Semercioğlu
+- Group members: Seray Yağcı , Yusuf Berk Oruç , Prashanth Sridhar ,  Berfin Taşkın , Emre Semercioğlu
 
 
 
