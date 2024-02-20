@@ -79,7 +79,7 @@ The following Statistical analyses were performed in the dataset:
 A web application for heart disease prediction and visualization was created using Django called **heartProjectApp**. The application has the following functionalities: 
 - Ajax calls for dynamic interaction, categorization, and storage of visualization images in SQLite database. The images can be retrieved on selection by the user.
 - Interactive form with Django's form function for users to input their data related to heart disease risk factors, such as Age, BMI, Race, etc., and used the evaluation script(**model_r**) to evaluate user data with the ML model, and reflect user result. (Heart disease Positive/Negative with probability)
-- A choropleth map of US states' heart disease percentages. This visualization is based on our data combined with a US GeoJSON file containing geographical boundaries of states.
+- A choropleth map of US states' heart disease percentages. This visualization is based on our data combined with a US GeoJSON file containing the geographical boundaries of states.
 
 ### Visualizations
 Several plots have been created to visualize the data for understanding the distribution of different variables. These include: 
@@ -92,6 +92,20 @@ Several plots have been created to visualize the data for understanding the dist
 7. Two histograms showing the distribution of BMI values among individuals with and without heart disease.
 
 ### Installation and Usage
+To run the web application, The user needs to access the project files from GitHub or by direct download. Go to the project file directory using the Terminal in your Python environment and install the required dependencies (listed in the **requirements.txt** file) such as pip, Django, SQLite, etc.
+Following this , :
+- Run pip install -r requirements.txt to install dependencies. The program uses SQLite as default database. You have to modify the database settings in **settings.py** file if you want to use other databases like MySQL or PostgreSQL.
+  
+To make Django create necessary database tables and structures :
+- Run python manage.py makemigrations
+- Run python manage.py migrate
+  
+And Finally , to run the server and open your application locally : 
+- Run python manage.py runserver
+- Navigate to [http://127.0.0.1:8000/heartProjectApp/](http://127.0.0.1:8000/heartProjectApp/) to access the application
+
+
+
 
 
 ### Timeline
@@ -112,6 +126,18 @@ The libraries used in this project include:
 - Tutor : Sven Sören Lange
 - Group leader: Seray Yağcı
 - Group members: Seray Yağcı , Yusuf Berk Oruç , Prashanth Sridhar ,  Berfin Taşkın , Emre Semercioğlu
+
+The members contributed to the project in the following ways: 
+
+- Data Gathering : Yusuf , Prashanth , Seray , Berfin and Emre
+- Data Cleaning and Handling : Yusuf
+- ML Model : Yusuf , Emre and Berfin
+- Correlation analyses and Statistical Tests : Emre and Berfin
+- Web interface  development and implementation : Seray
+- Interactive form : Seray and Berfin
+- Data Visualizations : Prashanth and Seray
+- Read Me file : Prashanth
+
 
 
 
