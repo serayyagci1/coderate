@@ -13,6 +13,10 @@ def data_clearer(file):
 
 # Read the csv file with the data_clearer function.
 df = data_clearer("/Users/yusufberkoruc/PycharmProjects/heart_disease_predictor/heart_2022_no_nans.csv")
+# Print out the Data characteristics to compare after cleaning.
+print("Data Info Before Cleaning:")
+df.info()
+print(df.nunique())
 
 # Merge the Heart Attack and the Angina columns to create single target variable "HeartDisease".
 def disease_maker(row):
@@ -67,7 +71,10 @@ df.drop(['HeightInMeters', 'WeightInKilograms'],axis =1,inplace =True)
 df.to_csv("heart_2022_cleared.csv",index=False)
 
 #Check the features of the Clean Data.
+print("Data Info After Cleaning")
 df.info()
 print(df.nunique())
+for i in df.columns:
+    print(df[i].value_counts())
 
 
