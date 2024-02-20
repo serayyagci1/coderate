@@ -13,8 +13,9 @@ The project has the following functionalities, with a focus on leveraging extern
 
 ### Data Sources and Retrieval
 
-The data for our project is sourced from a comprehensive dataset available on Kaggle, originally collected by the CDC. We will use Python libraries such as requests for data retrieval, ensuring seamless integration into our platform.
-This data set currently contains 246014 instances (after data cleaning). 36 relevant features have been extracted from a maximum of 40 in the total data.
+The data for our project is sourced from a comprehensive dataset available on Kaggle, originally collected by the CDC.
+The final data set  contains 246014 instances (after data pre-processing). 36 relevant features have been extracted from a maximum of 40 in the total data.
+
 The Features include (with description) :
 1. **State**: The state where the individual resides.
 2. **Sex**: Gender of the individual (Male/Female).
@@ -55,10 +56,10 @@ The Features include (with description) :
 
 ### Data Storage and Handling
 
-The dataset was imported as a dataset using the Pandas as a CSV file in Python, which allows for efficient data manipulation and analysis. Our approach will ensure compatibility with various data analysis tools without needing a separate database system.
+The dataset was imported as a dataset using Pandas as a CSV file in Python, which allows data manipulation and analysis. This approach ensures compatibility with various data analysis tools without needing a separate database system.
 
 ### Data Pre-processing
-A preliminary data exploration was performed  to understand its structure, features, and characteristics. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
+A preliminary data exploration was performed on the dataset  to understand its structure, characteristics and distribution of variables. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
 
 ### ML Model Implementation
 - The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
@@ -78,7 +79,7 @@ The following Statistical analyses were performed in the dataset:
 A web application for heart disease prediction and visualization was created using Django called **heartProjectApp**. The application has the following functionalities: 
 - Ajax calls for dynamic interaction, categorization, and storage of visualization images in SQLite database. The images can be retrieved on selection by the user.
 - Interactive form with Django's form function for users to input their data related to heart disease risk factors, such as Age, BMI, Race, etc., and used the evaluation script(**model_r**) to evaluate user data with the ML model, and reflect user result. (Heart disease Positive/Negative with probability)
-- A choropleth map of US states' heart disease percentages. This visualization is on our data combined with a US GeoJSON file containing geographical boundaries of states.
+- A choropleth map of US states' heart disease percentages. This visualization is based on our data combined with a US GeoJSON file containing geographical boundaries of states.
 
 ### Visualizations
 Several plots have been created to visualize the data for understanding the distribution of different variables. These include: 
