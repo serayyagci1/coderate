@@ -1,7 +1,7 @@
 # An Interactive Exploration of Heart Disease Indicators
 
 ## Description
-According to the CDC, heart disease is a leading cause of death for people of most races in the U.S. About half of all Americans (47%) have at least one major risk factor for heart disease: high blood pressure, high cholesterol, and smoking. Other key indicators include diabetes status, obesity (high BMI), level of physical activity, or alcohol consumption. Application of machine learning methods to detect patterns in the data can predict a patient's susceptibility to heart disease. This tool helps them to make informed decisions about lifestyle modifications to potentially reduce their risk of heart disease.
+According to the CDC, heart disease is a leading cause of death for people of most races in the U.S. About half of all Americans (47%) have at least one major risk factor for heart disease: high blood pressure, high cholesterol, and smoking. Other key indicators include diabetes status, obesity (high BMI), level of physical activity, or alcohol consumption. The application of machine learning methods to detect patterns in the data can predict a patient's susceptibility to heart disease. This tool helps them to make informed decisions about lifestyle modifications to potentially reduce their risk of heart disease.
 
 The [dataset](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease/data) used for this project was taken from Kaggle.
 
@@ -70,7 +70,7 @@ A preliminary data exploration was performed  to understand its structure, featu
 The following Statistical analyses were performed in the dataset:
 1. Correlation Matrix heatmap:  To visualize the correlation between all the features in the dataset.
 2. Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
-3. Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn's **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
+3. Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
 4.  T-Test for Comparing Groups: t-test to compare two groups based on a categorical variable (e.g., smoking status or gender) for the occurrence of heart disease(Yes or No).  The t-test uses **ttest_ind()** from scipy.stats.
 
 ### Interface
@@ -80,7 +80,19 @@ A web application for heart disease prediction and visualization was created usi
 3. A choropleth map of US states' heart disease percentages. This visualization is on our data combined with a US GeoJSON file containing geographical boundaries of states.
 
 ### Visualizations
+Several plots have been created to visualize the data for understanding the distribution of different variables. These include: 
+1. Bar plot showing the percentage of heart disease cases in different BMI categories.
+2. Violin plot demonstrating the distribution of ages for individuals with and without heart disease.
+3. Various Bar plots illustrating the percentage of heart disease cases among different categorical data(e.g. Diabetes, Depressive disorders, Smoking Status, COPD etc.)
+4. Pie chart illustrating the distribution of heart disease cases among different racial and ethnic categories.
+5. Strip plot demonstrating the distribution of BMI values for individuals with and without heart disease.
+6. A heatmap illustrating the correlation matrix among selected numeric columns, including heart disease and other variables.
+7. Two histograms showing the distribution of BMI values among individuals with and without heart disease.
 
+### Timeline
+The following is our timeline for the project 
+
+   
 
    
 
