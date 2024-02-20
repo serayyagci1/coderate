@@ -1,15 +1,39 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn import metrics
 from sklearn import tree
+from sklearn.neighbors import KNeighborsClassifier
 import joblib
 
-#Read the final clean data set suitable for the ML model.
-result_df = pd.read_csv("/Users/yusufberkoruc/PycharmProjects/heart_disease_predictor/final_evaluation_data.csv")
+#Transform input_dict into the data frame that is model predictable.
+def input_taker(input_dict,column_list_num,column_list_bool):
+    output_dict = dict()
+    #Directly put the numerical value into the output_dict
+    for i in column_list_num:
+        if i in input_dict:
+            output_dict[i] = input_dict[i]
+    #If the key == value then set it true otherwise false
+    for j in column_list_bool:
+        key,value = j.split("_",1)
+        if input_dict[key][0] == value:
+            output_dict[j] = True
+        else:
+            output_dict[j] = False
+    data_frame = pd.DataFrame.from_dict(output_dict)
+    return data_frame
 
+#Predict the single row of the data
+def single_predictor(model,scaler,series):
+    scaled_series = scaler.transform(series)
+    prediction_categorical = model.predict(scaled_series)
+    prediction_prob = model.predict_proba(scaled_series)
+    return prediction_categorical,prediction_prob
+
+#Evaluate the Model Metrics
 def evaluate_model(model, x_test, y_test):
     # Predict Test Data
     y_pred = model.predict(x_test)
@@ -22,7 +46,8 @@ def evaluate_model(model, x_test, y_test):
     kappa = metrics.cohen_kappa_score(y_test, y_pred)
 
     # Calculate area under curve (AUC)
-    y_pred_proba = model.predict_proba(x_test)[::, 1]
+    y_pred_proba = model.predict_proba(x_test)[:,1]
+
     fpr, tpr, _ = metrics.roc_curve(y_test, y_pred_proba, pos_label="Yes")
     auc = metrics.roc_auc_score(y_test, y_pred_proba)
 
@@ -31,6 +56,9 @@ def evaluate_model(model, x_test, y_test):
 
     return {'acc': acc, 'prec': prec, 'rec': rec, 'f1': f1, 'kappa': kappa,
             'fpr': fpr, 'tpr': tpr, 'auc': auc, 'cm': cm, 'y_pred_prob':y_pred_proba}
+
+#Read the final clean data set suitable for the ML model.
+result_df = pd.read_csv("/Users/yusufberkoruc/PycharmProjects/heart_disease_predictor/final_evaluation_data.csv")
 
 #Independent Variable
 X = result_df.drop('HeartDisease', axis= 1)
@@ -76,72 +104,67 @@ clf_T.fit(X_train_encoded_scaled, y_train)
 # Save the model
 joblib.dump(clf_T, 'model_T.save')
 
+# Train the model with the KNeighborsClassifier
+clf_K = KNeighborsClassifier(n_neighbors = 5)
+clf_K.fit(X_train_encoded_scaled, y_train)
 
+# Save the model
+joblib.dump(clf_K, 'model_K.save')
 
 
 # Evaluate Model Logistic Regression
-clf_eval = evaluate_model(clf_R, X_test_encoded_scaled, y_test)
+clf_eval_L = evaluate_model(clf_R, X_test_encoded_scaled, y_test)
 
 # Print result
 print("The Metrics of the LogisticRegression")
-print('Accuracy:', clf_eval['acc'])
-print('Precision:', clf_eval['prec'])
-print('Recall:', clf_eval['rec'])
-print('F1 Score:', clf_eval['f1'])
-print('Cohens Kappa Score:', clf_eval['kappa'])
-print('Area Under Curve:', clf_eval['auc'])
-print('Confusion Matrix:\n', clf_eval['cm'])
+print('Accuracy:', clf_eval_L['acc'])
+print('Precision:', clf_eval_L['prec'])
+print('Recall:', clf_eval_L['rec'])
+print('F1 Score:', clf_eval_L['f1'])
+print('Cohens Kappa Score:', clf_eval_L['kappa'])
+print('Area Under Curve:', clf_eval_L['auc'])
+print('Confusion Matrix:\n', clf_eval_L['cm'])
 
 # Evaluate Model Decision Tree
-clf_eval = evaluate_model(clf_T, X_test_encoded_scaled, y_test)
+clf_eval_T = evaluate_model(clf_T, X_test_encoded_scaled, y_test)
 
 # Print result
 print("The Metrics of the DecisionTree")
-print('Accuracy:', clf_eval['acc'])
-print('Precision:', clf_eval['prec'])
-print('Recall:', clf_eval['rec'])
-print('F1 Score:', clf_eval['f1'])
-print('Cohens Kappa Score:', clf_eval['kappa'])
-print('Area Under Curve:', clf_eval['auc'])
-print('Confusion Matrix:\n', clf_eval['cm'])
+print('Accuracy:', clf_eval_T['acc'])
+print('Precision:', clf_eval_T['prec'])
+print('Recall:', clf_eval_T['rec'])
+print('F1 Score:', clf_eval_T['f1'])
+print('Cohens Kappa Score:', clf_eval_T['kappa'])
+print('Area Under Curve:', clf_eval_T['auc'])
+print('Confusion Matrix:\n', clf_eval_T['cm'])
 
 
 
+# Evaluate Model KneighborsClassifier
+clf_eval_K = evaluate_model(clf_K, X_test_encoded_scaled, y_test)
 
-#Recall the model and the scaler required for prediction
+# Print result
+print("The Metrics of the KNeighboursClassifier")
+print('Accuracy:', clf_eval_K['acc'])
+print('Precision:', clf_eval_K['prec'])
+print('Recall:', clf_eval_K['rec'])
+print('F1 Score:', clf_eval_K['f1'])
+print('Cohens Kappa Score:', clf_eval_K['kappa'])
+print('Area Under Curve:', clf_eval_K['auc'])
+print('Confusion Matrix:\n', clf_eval_K['cm'])
+
+#Recall the best model and the scaler required for prediction
 model = joblib.load('model_R.save')
-scaler = joblib.load('scaler_test.save')
+scaler_test = joblib.load('scaler_test.save')
+scaler_train = joblib.load("scaler_train.save")
 
 # Predict the test data.
 prediction = model.predict(X_test_encoded_scaled)
 
-# transform input_dict into the data frame that is model predictable.
-def input_taker(input_dict,column_list_num,column_list_bool):
-    output_dict = dict()
-    #Directly put the numerical value into the output_dict
-    for i in column_list_num:
-        if i in input_dict:
-            output_dict[i] = input_dict[i]
-    #If the key == value then set it true otherwise false
-    for j in column_list_bool:
-        key,value = j.split("_",1)
-        if input_dict[key][0] == value:
-            output_dict[j] = True
-        else:
-            output_dict[j] = False
-    data_frame = pd.DataFrame.from_dict(output_dict)
-    return data_frame
-
-#Predict the single row of the data
-def single_predictor(model,scaler,series):
-    scaled_series = scaler.transform(series)
-    prediction_categorical = model.predict(scaled_series)
-    prediction_prob = model.predict_proba(scaled_series)
-    return prediction_categorical,prediction_prob
 
 # Check whether the single predictor works as same as the bulk prediction.
 """for i in range(len(X_test_encoded)):
-    prediction_categorical = single_predictor(model,scaler,X_test_encoded.iloc[[i]])[0]
+    prediction_categorical = single_predictor(model,scaler_test,X_test_encoded.iloc[[i]])[0]
     if (prediction_categorical == prediction[i]):
         Flag = True
     else:
@@ -174,11 +197,13 @@ random_int =  np.random.randint(0,len(X_test))
 random_input_dict = X_test.iloc[[random_int]].to_dict(orient = 'list')
 
 #Predict random Value with the Model.
-random_input_dict ={'BMI': [20], 'Smoking': ['Yes'], 'AlcoholDrinking': ['Yes'], 'Stroke': ['Yes'], 'PhysicalHealth': [0.0], 'MentalHealth': [0.0], 'DiffWalking': ['Yes'], 'Sex': ['Male'], 'AgeCategory': ['70-74'], 'Race': ['White'], 'Diabetic': ['Yes'], 'PhysicalActivity': ['No'], 'GenHealth': ['Excellent'], 'SleepTime': [8.0], 'Asthma': ['No'], 'KidneyDisease': ['No'], 'SkinCancer': ['No']}
+random_input_dict ={'BMI': [20], 'Smoking': ['Yes'], 'AlcoholDrinking': ['Yes'],
+                    'Stroke': ['Yes'], 'PhysicalHealth': [0.0], 'MentalHealth': [0.0], 'DiffWalking': ['Yes'],
+                    'Sex': ['Male'], 'AgeCategory': ['70-74'], 'Race': ['White'], 'Diabetic': ['Yes'],
+                    'PhysicalActivity': ['No'], 'GenHealth': ['Excellent'], 'SleepTime': [8.0], 'Asthma': ['No'],
+                    'KidneyDisease': ['No'], 'SkinCancer': ['No']}
 random_series = input_taker(random_input_dict,column_list_numerical,column_list_boolean)
-prediction_categorical,prediction_probability = single_predictor(model,scaler,random_series)
-print(prediction_categorical)
-print(prediction_probability)
+prediction_categorical,prediction_probability = single_predictor(model,scaler_train,random_series)
 
 #Display the Prediction Results.
 dict_2 = {"Yes":"Positive","No":"Negative"}
@@ -186,14 +211,58 @@ dict_3 = {"Yes":prediction_probability[0][1],"No":prediction_probability[0][0]}
 print(f" Ml model predicts the Heart disease as {dict_2[prediction_categorical[0]]} with the probability of {dict_3[prediction_categorical[0]]} ")
 
 
+# Intitialize figure with two plots
+fig, (ax1, ax2) = plt.subplots(1, 2)
+fig.suptitle('Model Comparison', fontsize=16, fontweight='bold')
+fig.set_figheight(7)
+fig.set_figwidth(14)
+fig.set_facecolor('white')
+
+# First plot
+## set bar size
+barWidth = 0.2
+clf_T_score = [clf_eval_T['acc'], clf_eval_T['prec'], clf_eval_T['rec'], clf_eval_T['f1'], clf_eval_T['kappa']]
+clf_K_score = [clf_eval_K['acc'], clf_eval_K['prec'], clf_eval_K['rec'], clf_eval_K['f1'], clf_eval_K['kappa']]
+clf_R_score = [clf_eval_L['acc'], clf_eval_L['prec'], clf_eval_L['rec'], clf_eval_L['f1'], clf_eval_L['kappa']]
 
 
+## Set position of bar on X axis
+r1 = np.arange(len(clf_T_score))
+r2 = [x + barWidth for x in r1]
+r3 = [x + barWidth for x in r2]
 
+## Make the plot
+ax1.bar(r1, clf_T_score, width=barWidth, edgecolor='white', label='Decision Tree')
+ax1.bar(r2, clf_K_score, width=barWidth, edgecolor='white', label='K-Nearest Neighbors')
+ax1.bar(r3,clf_R_score,width=barWidth, edgecolor='white', label='Logistic Regression')
 
+## Configure x and y axis
+ax1.set_xlabel('Metrics', fontweight='bold')
+labels = ['Accuracy', 'Precision', 'Recall', 'F1', 'Kappa']
+ax1.set_xticks([r + (barWidth * 1.25) for r in range(len(clf_T_score))], )
+ax1.set_xticklabels(labels)
+ax1.set_ylabel('Score', fontweight='bold')
+ax1.set_ylim(0, 1)
 
+## Create legend & title
+ax1.set_title('Evaluation Metrics', fontsize=14, fontweight='bold')
+ax1.legend()
 
+# Second plot
+## Comparing ROC Curve
+ax2.plot(clf_eval_T['fpr'], clf_eval_T['tpr'], label='Decision Tree, auc = {:0.5f}'.format(clf_eval_T['auc']))
+ax2.plot(clf_eval_K['fpr'], clf_eval_K['tpr'], label='K-Nearest Neighbor, auc = {:0.5f}'.format(clf_eval_K['auc']))
+ax2.plot(clf_eval_L['fpr'], clf_eval_L['tpr'], label='Logistic Regression, auc = {:0.5f}'.format(clf_eval_L['auc']))
 
+## Configure x and y axis
+ax2.set_xlabel('False Positive Rate', fontweight='bold')
+ax2.set_ylabel('True Positive Rate', fontweight='bold')
 
+## Create legend & title
+ax2.set_title('ROC Curve', fontsize=14, fontweight='bold')
+ax2.legend(loc=4)
+
+plt.show()
 
 
 
