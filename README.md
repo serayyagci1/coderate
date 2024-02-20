@@ -9,7 +9,7 @@ The [dataset](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicator
 
 
 ## Functionalities
-The project has the following functionalities, with a focus on leveraging external libraries to enhance our platform's capabilities:
+The project has the following functionalities, which makes use of external libraries to enhance our platform's capabilities:
 
 ### Data Sources and Retrieval
 
@@ -59,7 +59,7 @@ The Features include (with description) :
 The dataset was imported as a dataset using Pandas as a CSV file in Python, which allows data manipulation and analysis. This approach ensures compatibility with various data analysis tools without needing a separate database system.
 
 ### Data Pre-processing
-A preliminary data exploration was performed on the dataset  to understand its structure, characteristics and distribution of variables. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
+A preliminary data exploration was performed on the dataset  to understand its structure, characteristics, and distribution of variables. The final dataset was obtained by merging the data from 2020 and 2022 to address data imbalance and improve the model accuracy. The data was cleaned by dropping missing values(NA), duplicates and standardizing column names and values (For example: Age Categories). The 2022 dataset was subsetted and merged with the 2020 dataset as a common data frame ('**final_evalulation_data.csv**').
 
 ### ML Model Implementation
 - The final clean dataset is split into training and test datasets. Feature encoding (One-hot encoding) and Feature scaling are applied separately to both datasets.
@@ -71,18 +71,20 @@ A preliminary data exploration was performed on the dataset  to understand its s
 ### Statistical Analysis
 The following Statistical analyses were performed in the dataset:
 - Correlation Matrix heatmap:  To visualize the correlation between all the features in the dataset.
-- Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
+- Chi-Square Test for Categorical Variables: chi-square analysis for all pairs of categorical variables in the dataset. A low p-value(p<0.05) suggests  dependence between variables. The test is performed using **chi2_contingency()** from scipy.stats
 - Outlier Analysis for Numerical Columns: For each numerical column in the dataset, outliers were visualized using Seaborn **sns.boxplot()**. Outliers were detected using the interquartile range (IQR) method.
 - T-Test for Comparing Groups: t-test to compare two groups based on a categorical variable (e.g., smoking status or gender) for the occurrence of heart disease(Yes or No).  The t-test uses **ttest_ind()** from scipy.stats.
 
 ### Interface
 A web application for heart disease prediction and visualization was created using Django called **heartProjectApp**. The application has the following functionalities: 
+
 - Ajax calls for dynamic interaction, categorization, and storage of visualization images in SQLite database. The images can be retrieved on selection by the user.
 - Interactive form with Django's form function for users to input their data related to heart disease risk factors, such as Age, BMI, Race, etc., and used the evaluation script(**model_r**) to evaluate user data with the ML model, and reflect user result. (Heart disease Positive/Negative with probability)
 - A choropleth map of US states' heart disease percentages. This visualization is based on our data combined with a US GeoJSON file containing the geographical boundaries of states.
 
 ### Visualizations
 Several plots have been created to visualize the data for understanding the distribution of different variables. These include: 
+
 1. Bar plot showing the percentage of heart disease cases in different BMI categories.
 2. Violin plot demonstrating the distribution of ages for individuals with and without heart disease.
 3. Various Bar plots illustrating the percentage of heart disease cases among different categorical data(e.g. Diabetes, Depressive disorders, Smoking Status, COPD etc.)
