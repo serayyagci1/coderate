@@ -95,6 +95,12 @@ Several plots have been created to visualize the data for understanding the dist
 ![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/front-end/project_timeline.png?raw=true)
 
 ### Acknowledgments
+The libraries used in this project include: 
+For Data Handling and Pre-processing: Pandas, NumPy
+For ML model implementation : Pandas(pd) , NumPy(np) , Scikit-learn (sklearn) , joblib
+For Data Visualization : Matplotlib(plt) , Seaborn(sns) and Plotly Express
+For Statistical Analysis: Pandas, NumPy, SciPy(scipy.stats)
+For Web application: Django(django.db.models, django. forms, json ,django.shortcuts.render), Matplotlib , Plotly Express, and Seaborn
 
 ### Group Details
 - Group name: Coderate
