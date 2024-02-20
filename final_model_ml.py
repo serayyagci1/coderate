@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -52,10 +53,11 @@ def evaluate_model(model, x_test, y_test):
     auc = metrics.roc_auc_score(y_test, y_pred_proba)
 
     # Display confussion matrix
-    cm = metrics.confusion_matrix(y_test, y_pred,labels =["Yes","No"])
+    cm = metrics.confusion_matrix(y_test, y_pred)
 
     return {'acc': acc, 'prec': prec, 'rec': rec, 'f1': f1, 'kappa': kappa,
             'fpr': fpr, 'tpr': tpr, 'auc': auc, 'cm': cm, 'y_pred_prob':y_pred_proba}
+
 
 #Read the final clean data set suitable for the ML model.
 result_df = pd.read_csv("/Users/yusufberkoruc/PycharmProjects/heart_disease_predictor/final_evaluation_data.csv")
@@ -123,7 +125,8 @@ print('Recall:', clf_eval_L['rec'])
 print('F1 Score:', clf_eval_L['f1'])
 print('Cohens Kappa Score:', clf_eval_L['kappa'])
 print('Area Under Curve:', clf_eval_L['auc'])
-print('Confusion Matrix:\n', clf_eval_L['cm'])
+print("\n")
+
 
 # Evaluate Model Decision Tree
 clf_eval_T = evaluate_model(clf_T, X_test_encoded_scaled, y_test)
@@ -136,7 +139,7 @@ print('Recall:', clf_eval_T['rec'])
 print('F1 Score:', clf_eval_T['f1'])
 print('Cohens Kappa Score:', clf_eval_T['kappa'])
 print('Area Under Curve:', clf_eval_T['auc'])
-print('Confusion Matrix:\n', clf_eval_T['cm'])
+print("\n")
 
 
 
@@ -151,19 +154,20 @@ print('Recall:', clf_eval_K['rec'])
 print('F1 Score:', clf_eval_K['f1'])
 print('Cohens Kappa Score:', clf_eval_K['kappa'])
 print('Area Under Curve:', clf_eval_K['auc'])
-print('Confusion Matrix:\n', clf_eval_K['cm'])
+print("\n")
 
 #Recall the best model and the scaler required for prediction
 model = joblib.load('model_R.save')
 scaler_test = joblib.load('scaler_test.save')
 scaler_train = joblib.load("scaler_train.save")
 
-# Predict the test data.
-prediction = model.predict(X_test_encoded_scaled)
+
 
 
 # Check whether the single predictor works as same as the bulk prediction.
-"""for i in range(len(X_test_encoded)):
+# Predict the test data.
+"""prediction = model.predict(X_test_encoded_scaled)
+for i in range(len(X_test_encoded)):
     prediction_categorical = single_predictor(model,scaler_test,X_test_encoded.iloc[[i]])[0]
     if (prediction_categorical == prediction[i]):
         Flag = True
@@ -262,12 +266,30 @@ ax2.set_ylabel('True Positive Rate', fontweight='bold')
 ax2.set_title('ROC Curve', fontsize=14, fontweight='bold')
 ax2.legend(loc=4)
 
+
+# Intitialize figure with two plots
+fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+
+fig.suptitle('Confusion Matrix Comparison', fontsize=16, fontweight='bold')
+fig.set_figheight(7)
+fig.set_figwidth(14)
+fig.set_facecolor('white')
+
+
+sns.heatmap(clf_eval_L["cm"], annot=True, fmt="d", cmap="Blues", cbar=False, ax = axs[0])
+axs[0].set_title("Logistic Regression")
+axs[0].set_xlabel("Prediction")
+axs[0].set_ylabel("Real Value")
+
+sns.heatmap(clf_eval_K["cm"], annot=True, fmt="d", cmap="Blues", cbar=False, ax = axs[1])
+axs[1].set_title("Decision Tree")
+axs[1].set_xlabel("Prediction")
+axs[1].set_ylabel("Real Value")
+
+sns.heatmap(clf_eval_T["cm"], annot=True, fmt="d", cmap="Blues", cbar=False, ax = axs[2])
+axs[2].set_title("KNeighbor Classifier")
+axs[2].set_xlabel("Prediction")
+axs[2].set_ylabel("Real Value")
+
+plt.tight_layout()
 plt.show()
-
-
-
-
-
-
-
-
