@@ -113,7 +113,7 @@ And Finally , to run the server and open your application locally :
 ### Timeline
 ![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/master/project_timeline.png?raw=true)
 
-### Acknowledgments
+### Dependencies
 The libraries used in this project include: 
 - For Data Handling and Pre-processing: Pandas, NumPy
 - For ML model implementation : Pandas(pd) , NumPy(np) , Scikit-learn (sklearn) , joblib
@@ -132,13 +132,16 @@ The libraries used in this project include:
 The members contributed to the project in the following ways: 
 
 - Data Gathering : Yusuf , Prashanth , Seray , Berfin and Emre
-- Data Cleaning and Handling : Yusuf
+- Data Cleaning and Handling: Yusuf
 - ML Model : Yusuf , Emre and Berfin
-- Correlation analyses and Statistical Tests : Emre and Berfin
-- Web interface  development and implementation : Seray
-- Interactive form : Seray and Berfin
-- Data Visualizations : Prashanth and Seray
-- Read Me file : Prashanth
+- Correlation analyses and Statistical Tests: Emre and Berfin
+- Web interface  development and implementation: Seray
+- Interactive form: Seray and Berfin
+- Data Visualizations: Prashanth and Seray
+- Read Me file: Prashanth
+
+### Dataset source
+https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease/code?datasetId=1936563&sortBy=voteCount
 
 
 
