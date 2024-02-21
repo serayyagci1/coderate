@@ -64,8 +64,7 @@
          </div>
          <div id="loading-indicator">
             <img src="{% static 'heartProjectApp/home-images/loading.gif' %}" alt="Loading...">
-        </div>
-        
+         </div>
          <div id="image-section" class="image-shower" style="display: none;">
             {% for image in images %}
             <img src="{{ image.url }}" alt="{{ image.title }}">
@@ -94,88 +93,91 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
       <script>
-        function loadImages(category) {
-                 $.ajax({
-                     url: `/heartProjectApp/display_images/${category}/`,
-                     method: 'GET',
-                     success: function (data) {
-                        // Hide loading 
-                        $('#loading-indicator').hide();
-                         // Fade out the current image
-                        $('#image-section').fadeOut(400, function () {
-                        // Fade in the new image
-                        $(this).html(data).fadeIn(400);
-                         });
-                     },
-                     //Error handling
-                     error: function (xhr, status, error) {
-                         console.error('Error fetching images:', error);
-                         alert('Error fetching images. Please try again.');
-                     }
-                 });
-             }
-         $(document).ready(function () {
-            //Show loading
-            $('#loading-indicator').show();
-             //Function for selective image loading by category
-             
-             // Call loadImages with the default category on page load
-             loadImages('sex');
-         
-             // Initialize popovers
-             $('[data-toggle="popover"]').popover({
-                 html: true
-             });
-         
-             // Close popovers when clicking outside
-             $(document).on('click', function (e) {
-                 $('[data-toggle="popover"]').each(function () {
-                     if (!$(this).is(e.target) &&
-                         $(this).has(e.target).length === 0 &&
-                         $('.popover').has(e.target).length === 0) {
-                         $(this).popover('hide');
-                     }
-                 });
-             });
-         
-             //Heart disease form submit code
-             $('#heartDiseaseForm').submit(function (event) {
-                 // Prevent default form submission
-                 event.preventDefault();
-         
-                 // Serialize form data
-                 var formData = $(this).serialize();
-         
-                 // Submit the form using AJAX
-                 $.ajax({
-                     url: $(this).attr('action'),
-                     method: 'POST',
-                     data: formData,
-                     dataType: 'json', 
-                     success: function (data) {
-                         // Update the corresponding element with the results
-                         $('#form-results').html('<h2>Results:</h2><p>' + data.logistic_regression_results + '</p>');
-                     },
-         
-                     error: function (xhr, status, error) {
-                         // Error handling
-                         console.error('Error submitting form:', error);
-                     }
-                 });
-             });
-             //Smooth scroll animation
-             $('a[href^="#"]').on('click', function (event) {
-                 event.preventDefault();
-         
-                 var target = $(this.getAttribute('href'));
-         
-                 if (target.length) {
-                     $('html, body').stop().animate({
-                         scrollTop: target.offset().top
-                     }, 1000);
-                 }
-             });
-         });
+         function loadImages(category) {
+             //Makes an ajax request via jquery
+                  $.ajax({
+                     //the url to which the AJAX request will be sent, it goes to my display_images view with the category
+                      url: `/heartProjectApp/display_images/${category}/`, 
+                      //Using the 'GET' method to get data
+                      method: 'GET',
+                      success: function (data) {
+                         // Hide loading 
+                         $('#loading-indicator').hide();
+                          // Fade out the current image
+                         $('#image-section').fadeOut(400, function () {
+                         // Fade in the new image, data is path of image for chosen category, comes from the view
+                         $(this).html(data).fadeIn(400);
+                          });
+                      },
+                      //Error handling
+                      error: function (xhr, status, error) {
+                          console.error('Error fetching images:', error);
+                          alert('Error fetching images. Please try again.');
+                      }
+                  });
+              }
+          $(document).ready(function () {
+             //Show loading gif for inital load on the images section
+             $('#loading-indicator').show();
+              // Call loadImages with the default category on page load
+              loadImages('sex');
+              // Initialize popovers on certain form fields
+              $('[data-toggle="popover"]').popover({
+                  html: true
+              });
+          
+              // Close popovers when clicking outside
+              $(document).on('click', function (e) {
+                  $('[data-toggle="popover"]').each(function () {
+                      if (!$(this).is(e.target) &&
+                          $(this).has(e.target).length === 0 &&
+                          $('.popover').has(e.target).length === 0) {
+                          $(this).popover('hide');
+                      }
+                  });
+              });
+          
+              //Heart disease form submit code!!!
+              $('#heartDiseaseForm').submit(function (event) {
+                  // Prevent default form submission behavior
+                  event.preventDefault();
+          
+                  // Form data is serialized into a string to be sent over AJAX
+                  var formData = $(this).serialize();
+          
+                  // Submit the form using AJAX
+                  $.ajax({
+                     //The url will lead the request to the "home" view, this is set in the html form element
+                      url: $(this).attr('action'),
+                      method: 'POST',
+                      //The form data is sent as the data
+                      data: formData,
+                      //A 'JSON' type response is expected from the server
+                      dataType: 'json', 
+                      success: function (data) {
+                     // Update the form-results element's content with the results sent from the view
+                          $('#form-results').html('<h2>Results:</h2><p>' + data.logistic_regression_results + '</p>');
+                      },
+          
+                      error: function (xhr, status, error) {
+                          // Error handling
+                          console.error('Error submitting form:', error);
+                      }
+                  });
+              });
+              //Smooth scroll animation
+              $('a[href^="#"]').on('click', function (event) {
+                  event.preventDefault();
+          
+                  var target = $(this.getAttribute('href'));
+          
+                  if (target.length) {
+                      $('html, body').stop().animate({
+                          scrollTop: target.offset().top
+                      }, 1000);
+                  }
+              });
+          });
       </script>
    </body>
 </html>
