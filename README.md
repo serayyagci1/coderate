@@ -87,11 +87,12 @@ Several plots have been created to visualize the data for understanding the dist
 
 1. Bar plot showing the percentage of heart disease cases in different BMI categories.
 2. Violin plot demonstrating the distribution of ages for individuals with and without heart disease.
-3. Various Bar plots illustrating the percentage of heart disease cases among different categorical data(e.g. Diabetes, Depressive disorders, Smoking Status, COPD etc.)
-4. Pie chart illustrating the distribution of heart disease cases among different racial and ethnic categories.
-5. Strip plot demonstrating the distribution of BMI values for individuals with and without heart disease.
-6. A heatmap illustrating the correlation matrix among selected numeric columns, including heart disease and other variables.
-7. Two histograms showing the distribution of BMI values among individuals with and without heart disease.
+3. Several Bar plots illustrating the percentage of heart disease cases among different categorical data(e.g. Diabetes, Depression, COPD, HIV, etc. )
+4. Barplot showing the distribution of Heart Disease with Sleep Time
+5. Barplot showing the percentage of Heart disease with lifestyle (Smoking Status, Physical Activity , Alcohol Consumption)
+6. Pie chart illustrating the distribution of heart disease cases among different racial and ethnic categories.
+7. A heatmap illustrating the correlation matrix among selected numeric columns, including heart disease and other variables.
+
 
 ### Installation and Usage
 To run the web application, The user needs to access the project files from GitHub or by direct download. Go to the project file directory using the Terminal in your Python environment and install the required dependencies (listed in the **requirements.txt** file) such as pip, Django, SQLite, etc.
