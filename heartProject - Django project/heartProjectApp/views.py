@@ -1,4 +1,3 @@
-# yourappname/views.py
 from django.shortcuts import render
 from django.http import JsonResponse
 import plotly.express as px
@@ -74,11 +73,16 @@ def choropleth_map(request):
 def home(request):
     choropleth_map_html = choropleth_map(request).content.decode("utf-8")
     images = Picture.objects.all()
+    
 
+    #For post requests,
     if request.method == 'POST':
+        #instance of form class HeartDiseaseForm (from the forms.py file) is defined as the HeartDiseaseForm which was defined in the forms.py file, 
+        #and populated by the data gotten from the POST request.
         form = HeartDiseaseForm(request.POST, csv_columns=['BMI', 'Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'AgeCategory', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer'])
+        #Checks if form instance is valid according to the HeartDiseaseForm class
         if form.is_valid():
-            input_data = {
+            input_data = { #input_data dictionary is created with values taken from form.cleaned_data
                 'BMI': [float(form.cleaned_data['BMI'])],
                 'PhysicalHealth': [float(form.cleaned_data['PhysicalHealth'])],
                 'MentalHealth': [float(form.cleaned_data['MentalHealth'])],
@@ -115,13 +119,15 @@ def home(request):
             # Return the result as JSON
             return JsonResponse({'logistic_regression_results': logistic_regression_results})
     else:
-        form = HeartDiseaseForm()
+        form = HeartDiseaseForm() #creates empty formm instance if request is not 'POST'
 
     return render(request, 'home.html', {'form': form, 'images': images, 'choropleth_map': choropleth_map_html})
 
-
+#The display_images view that takes an HTTP request object and a category parameter
 def display_images(request, category):
+    #filter function directs the database to take the image that belongs to the specified category and puts it in the image variable
     images = Picture.objects.filter(category=category)
+    #The retrieved image is passed through the image_list template as a dict, a response object is returned to be displayed in the HTML
     return render(request, 'image_list.html', {'images': images})
 
 
