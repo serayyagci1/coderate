@@ -110,10 +110,10 @@ And Finally , to run the server and open your application locally :
 
 
 
-### Timeline
+## Timeline
 ![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/master/project_timeline.png?raw=true)
 
-### Dependencies
+## Dependencies
 The libraries used in this project include: 
 - For Data Handling and Pre-processing: Pandas, NumPy
 - For ML model implementation : Pandas(pd) , NumPy(np) , Scikit-learn (sklearn) , joblib
@@ -122,7 +122,7 @@ The libraries used in this project include:
 - For Web interface: Django(django.db.models, django. forms, json ,django.shortcuts.render), pip , Matplotlib , Plotly Express, and Seaborn
   
 
-### Group Details
+## Group Details
 - Group name: Coderate
 - Group code: G04
 - Tutor : Sven Sören Lange
@@ -140,7 +140,7 @@ The members contributed to the project in the following ways:
 - Data Visualizations: Prashanth and Seray
 - Read Me file: Prashanth
 
-### Dataset source
+## Dataset source
 https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease/code?datasetId=1936563&sortBy=voteCount
 
 
