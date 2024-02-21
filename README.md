@@ -111,7 +111,7 @@ And Finally , to run the server and open your application locally :
 
 
 ### Timeline
-![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/front-end/project_timeline.png?raw=true)
+![The following is our timeline for the project](https://github.com/serayyagci1/coderate/blob/master/project_timeline.png?raw=true)
 
 ### Acknowledgments
 The libraries used in this project include: 
