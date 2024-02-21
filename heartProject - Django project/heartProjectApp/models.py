@@ -2,7 +2,7 @@ from django.db import models
 #Picture model specifying its default and input values
 class Picture(models.Model):
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images/')  # Update this line
+    image = models.ImageField(upload_to='images/') 
     category = models.CharField(max_length=50, default='default_category')
 
     def __str__(self):
