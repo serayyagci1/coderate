@@ -136,7 +136,7 @@ The members contributed to the project in the following ways:
 - ML Model : Yusuf , Emre and Berfin
 - Correlation analyses and Statistical Tests: Emre and Berfin
 - Web interface  development and implementation: Seray
-- Interactive form: Seray and Berfin
+- Interactive form: Seray
 - Data Visualizations: Prashanth and Seray
 - Read Me file: Prashanth
 
